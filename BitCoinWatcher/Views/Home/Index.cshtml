@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Bitcoin Watcher";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/bitcoin-watcher")
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Waluta</th>
+                    <th>Kurs zakupu</th>
+                    <th>Zainestowano</th>
+                    <th>Kupiono</th>
+                    <th>Kurs aktualny</th>
+                    <th>Kurs opłacalny</th>
+                    <th>Zysk</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody data-bind="foreach: coinItems">
+                <tr>
+                    <td data-bind="text: currency"></td>
+                    <td class="text-right" data-bind="text: offerExchangeRate.toFixed(2)"></td>
+                    <td class="text-right" data-bind="text: amountSpent.toFixed(2)"></td>
+                    <td class="text-right" data-bind="text: amountBought.toFixed(4)"></td>
+                    <td class="text-right" data-bind="text: currentExchangeRate.toFixed(2)"></td>
+                    <td class="text-right" data-bind="text: viableExchangeRate.toFixed(2)"></td>
+                    <td class="text-right" data-bind="text: profit, css: {plus: profit > 0, minus: profit < 0}"></td>
+                    <td><button class="btn btn-danger"data-bind="click: function() { $root.removeCoinItem(id); }">Usuń</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form data-bind="submit: addCoinItem">
+                <div class="form-inline">
+                    <input class="form-control mb-2 mr-sm-2" type="number" id="amountSpent" name="amountSpent" placeholder="Wydano PLN" step="0.01"/>
+                    <select class="form-control mb-2 mr-sm-2" id="currency" name="currency" data-bind="options: currencies, optionsText: 'name', optionsValue: 'id', optionsCaption: 'Waluta'"></select>
+                    <input class="form-control mb-2 mr-sm-2" type="number" id="offerExchangeRate" name="offerExchangeRate" placeholder="Kurs kupna" step="0.0001"/>
+                    <input type="submit" class="btn btn-primary mb-2 mr-sm-2" value="Dodaj"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/bitcoin-watcher")
+    <script type="text/javascript">
+        BitcoinWatcher.Bootstrapper.initialize();
+    </script>
+}
