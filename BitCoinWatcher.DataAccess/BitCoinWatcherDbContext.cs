@@ -5,6 +5,6 @@ namespace BitCoinWatcher.DataAccess
 {
     public class BitCoinWatcherDbContext : DbContext, IBitCoinWatcherDbContext
     {
-        public DbSet<CoinItem> CoinItems { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }

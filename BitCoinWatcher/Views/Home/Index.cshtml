@@ -21,7 +21,7 @@
                     <th></th>
                 </tr>
                 </thead>
-                <tbody data-bind="foreach: coinItems">
+                <tbody data-bind="foreach: transactions">
                 <tr>
                     <td data-bind="text: currency"></td>
                     <td class="text-right" data-bind="text: offerExchangeRate.toFixed(2)"></td>
@@ -30,7 +30,7 @@
                     <td class="text-right" data-bind="text: currentExchangeRate.toFixed(2)"></td>
                     <td class="text-right" data-bind="text: viableExchangeRate.toFixed(2)"></td>
                     <td class="text-right" data-bind="text: profit, css: {plus: profit > 0, minus: profit < 0}"></td>
-                    <td><button class="btn btn-danger"data-bind="click: function() { $root.removeCoinItem(id); }">Usuń</button></td>
+                    <td><button class="btn btn-danger"data-bind="click: function() { $root.removeTransaction(id); }">Usuń</button></td>
                 </tr>
                 </tbody>
             </table>
@@ -38,7 +38,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form data-bind="submit: addCoinItem">
+            <form data-bind="submit: addTransaction">
                 <div class="form-inline">
                     <input class="form-control mb-2 mr-sm-2" type="number" id="amountSpent" name="amountSpent" placeholder="Wydano PLN" step="0.01"/>
                     <select class="form-control mb-2 mr-sm-2" id="currency" name="currency" data-bind="options: currencies, optionsText: 'name', optionsValue: 'id', optionsCaption: 'Waluta'"></select>

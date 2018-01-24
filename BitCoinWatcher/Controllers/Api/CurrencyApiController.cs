@@ -9,11 +9,11 @@ using BitCoinWatcher.Models.Currencies;
 namespace BitCoinWatcher.Controllers.Api
 {
     [RoutePrefix("currency")]
-    public class CurrencyController : ApiController
+    public class CurrencyApiController : ApiController
     {
         private readonly IBitBayClient _bitBayClient;
 
-        public CurrencyController(IBitBayClient bitBayClient)
+        public CurrencyApiController(IBitBayClient bitBayClient)
         {
             _bitBayClient = bitBayClient;
         }

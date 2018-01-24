@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace BitCoinWatcher.Models.CoinItems
+namespace BitCoinWatcher.Models.Transactions
 {
     [Serializable]
-    public class CoinItemViewModel
+    public class TransactionViewModel
     {
         public int Id;
         public decimal AmountSpent;

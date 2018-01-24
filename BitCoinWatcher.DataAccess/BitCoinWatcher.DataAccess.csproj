@@ -59,22 +59,29 @@
   <ItemGroup>
     <Compile Include="BitCoinWatcherDbContext.cs" />
     <Compile Include="DataAccessModule.cs" />
-    <Compile Include="Entities\CoinItem.cs" />
+    <Compile Include="Entities\Transaction.cs" />
     <Compile Include="IBitCoinWatcherDbContext.cs" />
     <Compile Include="Migrations\201801201643414_InitialMigration.cs" />
     <Compile Include="Migrations\201801201643414_InitialMigration.Designer.cs">
       <DependentUpon>201801201643414_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801241902295_RenameCoinItemToTransaction.cs" />
+    <Compile Include="Migrations\201801241902295_RenameCoinItemToTransaction.Designer.cs">
+      <DependentUpon>201801241902295_RenameCoinItemToTransaction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CoinItemRepository.cs" />
-    <Compile Include="Repositories\ICoinItemRepository.cs" />
+    <Compile Include="Repositories\TransactionRepository.cs" />
+    <Compile Include="Repositories\ITransactionRepository.cs" />
     <Compile Include="Repositories\Base\IRepository.cs" />
     <Compile Include="Repositories\Base\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801201643414_InitialMigration.resx">
       <DependentUpon>201801201643414_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801241902295_RenameCoinItemToTransaction.resx">
+      <DependentUpon>201801241902295_RenameCoinItemToTransaction.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

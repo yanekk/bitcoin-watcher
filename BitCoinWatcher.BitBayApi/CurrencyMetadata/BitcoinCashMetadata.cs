@@ -6,6 +6,6 @@ namespace BitCoinWatcher.BitBayApi.CurrencyMetadata
     {
         public Currency Currency => Currency.BitcoinCash;
         public string Name => "Bitcoin Cash";
-        public string Abbreviation => "bcc";
+        public string Abbreviation => "bch";
     }
 }

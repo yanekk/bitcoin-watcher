@@ -1,11 +1,11 @@
 ﻿using BitCoinWatcher.BitBayApi.Enums;
 using FluentValidation;
 
-namespace BitCoinWatcher.Models.CoinItems
+namespace BitCoinWatcher.Models.Transactions
 {
-    public class CoinItemFormModelValidator : AbstractValidator<CoinItemFormModel>
+    public class TransactionFormModelValidator : AbstractValidator<TransactionFormModel>
     {
-        public CoinItemFormModelValidator()
+        public TransactionFormModelValidator()
         {
             RuleFor(m => m.Currency)
                 .NotEqual(Currency.Pln);

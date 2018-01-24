@@ -1,31 +1,31 @@
 ﻿var BitcoinWatcher = BitcoinWatcher || {};
 BitcoinWatcher.Services = BitcoinWatcher.Services || {};
 
-BitcoinWatcher.Services.CoinItemService = function() {
+BitcoinWatcher.Services.TransactionService = function() {
     "use strict";
     var self = this;
 
-    self.getCoinItems = function() {
+    self.getTransactions = function() {
         return $.deferredClosure(function(deferred) {
-            $.getJson("/coins")
+            $.getJson("/transactions")
                 .done(function(coinItems) {
                     deferred.resolve(coinItems);
                 });
         });
     }
 
-    self.addCoinItem = function(coinItem) {
+    self.addTransaction = function(coinItem) {
         return $.deferredClosure(function(deferred) {
-            $.postJson("/coins", coinItem)
+            $.postJson("/transactions", coinItem)
                 .done(function(response) {
                     deferred.resolve(response);
                 });
         });
     }
 
-    self.removeCoinItem = function (coinItemId) {
+    self.removeTransaction = function (coinItemId) {
         return $.deferredClosure(function (deferred) {
-            $.deleteJson("/coins/"+coinItemId)
+            $.deleteJson("/transactions/"+coinItemId)
                 .done(function (response) {
                     deferred.resolve(response);
                 });

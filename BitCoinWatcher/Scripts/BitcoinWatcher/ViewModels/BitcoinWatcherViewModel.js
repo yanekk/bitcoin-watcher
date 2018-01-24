@@ -6,7 +6,7 @@ BitcoinWatcher.ViewModels.BitcoinWatcherViewModel = function() {
     var self = this;
 
     self.currencies = ko.observableArray();
-    self.coinItems = ko.observableArray();
+    self.transactions = ko.observableArray();
 
     var currencyService = new BitcoinWatcher.Services.CurrencyService();
     currencyService
@@ -15,27 +15,27 @@ BitcoinWatcher.ViewModels.BitcoinWatcherViewModel = function() {
             self.currencies(currencies);
         });
 
-    var coinItemService = new BitcoinWatcher.Services.CoinItemService();
+    var transactionService = new BitcoinWatcher.Services.TransactionService();
     var refresh = function() {
-        coinItemService
-            .getCoinItems()
-            .done(function(coinItems) {
-                self.coinItems(coinItems);
+        transactionService
+            .getTransactions()
+            .done(function(transactions) {
+                self.transactions(transactions);
             });
     }
 
-    self.addCoinItem = function(form) {
-        coinItemService
-            .addCoinItem($(form).serializeObject())
+    self.addTransaction = function(form) {
+        transactionService
+            .addTransaction($(form).serializeObject())
             .done(function(validationResult) {
                 refresh();
             });
     }
 
-    self.removeCoinItem = function (coinItemId) {
-        if (confirm("Czy na pewno chcesz usunąć?")) {
-            coinItemService
-                .removeCoinItem(coinItemId)
+    self.removeTransaction = function (coinItemId) {
+        if (confirm("Czy na pewno chcesz usunąć transakcję?")) {
+            transactionService
+                .removeTransaction(coinItemId)
                 .done(function(validationResult) {
                     refresh();
                 });

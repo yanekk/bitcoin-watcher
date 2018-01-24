@@ -4,7 +4,7 @@ using BitCoinWatcher.BitBayApi.Enums;
 
 namespace BitCoinWatcher.DataAccess.Entities
 {
-    public class CoinItem
+    public class Transaction
     {
         [Key]
         public int Id { get; set; }

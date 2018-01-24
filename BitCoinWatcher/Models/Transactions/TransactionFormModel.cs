@@ -1,10 +1,10 @@
 ﻿using BitCoinWatcher.BitBayApi.Enums;
 using FluentValidation.Attributes;
 
-namespace BitCoinWatcher.Models.CoinItems
+namespace BitCoinWatcher.Models.Transactions
 {
-    [Validator(typeof(CoinItemFormModelValidator))]
-    public class CoinItemFormModel
+    [Validator(typeof(TransactionFormModelValidator))]
+    public class TransactionFormModel
     {
         public decimal AmountSpent { get; set; }
         public decimal OfferExchangeRate { get; set; }

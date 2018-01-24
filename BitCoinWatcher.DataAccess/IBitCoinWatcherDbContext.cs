@@ -6,7 +6,7 @@ namespace BitCoinWatcher.DataAccess
 {
     interface IBitCoinWatcherDbContext : IDisposable
     {
-        DbSet<CoinItem> CoinItems { get; set; }
+        DbSet<Transaction> Transactions { get; set; }
 
         int SaveChanges();
     }
