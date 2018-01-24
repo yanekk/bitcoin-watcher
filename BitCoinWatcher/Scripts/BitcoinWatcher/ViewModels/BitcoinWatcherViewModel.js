@@ -8,6 +8,27 @@ BitcoinWatcher.ViewModels.BitcoinWatcherViewModel = function() {
     self.currencies = ko.observableArray();
     self.transactions = ko.observableArray();
 
+    self.totalAmountSpent = ko.computed(function() {
+        return _.reduce(self.transactions(),
+            function(total, transactionGroup) {
+                return total +
+                    _.reduce(transactionGroup.transactions,
+                        function(totalInGroup, transaction) {
+                            return totalInGroup + transaction.amountSpent;
+                        }, 0);
+            }, 0);
+    });
+
+    self.totalProfit = ko.computed(function () {
+        return _.reduce(self.transactions(),
+            function (total, transactionGroup) {
+                return total +
+                    _.reduce(transactionGroup.transactions,
+                        function (totalInGroup, transaction) {
+                            return totalInGroup + transaction.profit;
+                        }, 0);
+            }, 0);
+    });
     var currencyService = new BitcoinWatcher.Services.CurrencyService();
     currencyService
         .getCurrencies()
@@ -43,7 +64,9 @@ BitcoinWatcher.ViewModels.BitcoinWatcherViewModel = function() {
     }
 
     refresh();
+    /*
     var interval = setInterval(function() {
             refresh();
         }, 15000);
+        */
 }

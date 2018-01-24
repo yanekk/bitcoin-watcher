@@ -6,38 +6,76 @@
 @Styles.Render("~/Content/bitcoin-watcher")
 
 <div class="container-fluid">
+    <!-- ko foreach: transactions-->
     <div class="row">
-        <div class="col-md-12">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Waluta</th>
-                    <th>Kurs zakupu</th>
-                    <th>Zainestowano</th>
-                    <th>Kupiono</th>
-                    <th>Kurs aktualny</th>
-                    <th>Kurs opłacalny</th>
-                    <th>Zysk</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody data-bind="foreach: transactions">
-                <tr>
-                    <td data-bind="text: currency"></td>
-                    <td class="text-right" data-bind="text: offerExchangeRate.toFixed(2)"></td>
-                    <td class="text-right" data-bind="text: amountSpent.toFixed(2)"></td>
-                    <td class="text-right" data-bind="text: amountBought.toFixed(4)"></td>
-                    <td class="text-right" data-bind="text: currentExchangeRate.toFixed(2)"></td>
-                    <td class="text-right" data-bind="text: viableExchangeRate.toFixed(2)"></td>
-                    <td class="text-right" data-bind="text: profit, css: {plus: profit > 0, minus: profit < 0}"></td>
-                    <td><button class="btn btn-danger"data-bind="click: function() { $root.removeTransaction(id); }">Usuń</button></td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="container-fluid transaction-group">
+            <div class="row header">
+                <div class="col-6">
+                    <h1 class="currency-name" data-bind="text: currency"></h1>
+                </div>
+                <div class="col-6">
+                    <h1 class="current-exchange-rate text-right" data-bind="text: currentExchangeRate.toFixed(2)"></h1>
+                </div>
+            </div>
+            <!-- ko foreach: transactions-->
+            <div class="row transaction">
+                <div class="col-3 transaction-properties">
+                    <ul class="transaction-properties text-right">
+                        <li>Kwota:</li>
+                        <li>Kupiono:</li>
+                        <li>Kurs:</li>
+                    </ul>
+                </div>
+                <div class="col-4 transaction-properties">
+                    <ul class="transaction-properties">
+                        <li><span data-bind="text: amountSpent.toFixed(2)"></span> PLN</li>
+                        <li data-bind="text: amountBought.toFixed(6)"></li>
+                        <li data-bind="text: offerExchangeRate.toFixed(4)"></li>
+                    </ul>
+                </div>
+                <div class="col-4">
+                    <div class="profit" data-bind="css: {plus: profit > 0, minus: profit < 0}">
+                        <span class="profit-amount" data-bind="text: profit.toFixed(2)"> </span>
+                        <span class="viable-exchange-rate">(min. kurs: <span data-bind="text: viableExchangeRate.toFixed(2)"></span>)</span>
+                    </div>
+                </div>
+                <div class="col-1 remove-button">
+                    <button class="btn btn-danger btn-sm" data-bind="click: function() { $root.removeTransaction(id); }"><span class="fa fa-times"></span></button>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+    <div class="row">
+        <div class="container-fluid transaction-group">
+            <div class="row header">
+                <div class="col-6">
+                    <h1 class="currency-name">Suma</h1>
+                </div>
+            </div>
+            <div class="row transaction">
+                <div class="col-3 transaction-properties">
+                    <ul class="transaction-properties text-right">
+                        <li>Kwota: </li>
+                    </ul>
+                </div>
+                <div class="col-4 transaction-properties">
+                    <ul class="transaction-properties">
+                        <li><span data-bind="text: totalAmountSpent().toFixed(2)"></span> PLN</li>
+                    </ul>
+                </div>
+                <div class="col-4">
+                    <div class="profit" data-bind="css: {plus: totalProfit() > 0, minus: totalProfit() < 0}">
+                        <span class="profit-amount" data-bind="text: totalProfit().toFixed(2)"> </span>
+                    </div>
+                </div>
+                <div class="col-1 remove-button"></div>
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             <form data-bind="submit: addTransaction">
                 <div class="form-inline">
                     <input class="form-control mb-2 mr-sm-2" type="number" id="amountSpent" name="amountSpent" placeholder="Wydano PLN" step="0.01"/>

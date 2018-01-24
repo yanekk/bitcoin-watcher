@@ -9,8 +9,6 @@ namespace BitCoinWatcher.Models.Transactions
         public decimal AmountSpent;
         public decimal OfferExchangeRate;
         public decimal AmountBought;
-        public string Currency;
-        public decimal CurrentExchangeRate;
         public decimal ViableExchangeRate;
         public decimal Profit;
     }

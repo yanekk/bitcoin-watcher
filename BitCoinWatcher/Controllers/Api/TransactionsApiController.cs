@@ -25,10 +25,11 @@ namespace BitCoinWatcher.Controllers.Api
         }
 
         [HttpGet, Route("")]
-        public List<TransactionViewModel> GetAll()
+        public List<TransactionGroupViewModel> GetAll()
         {
             return _transactionRepository.GetAll()
-                .Select(ConvertToViewModel)
+                .GroupBy(t => t.Currency)
+                .Select(group => ConvertToViewModel(group.Key, group.AsEnumerable()))
                 .ToList();
         }
 
@@ -63,23 +64,30 @@ namespace BitCoinWatcher.Controllers.Api
             };
         }
 
-        private TransactionViewModel ConvertToViewModel(Transaction transaction)
+        private TransactionGroupViewModel ConvertToViewModel(Currency currency, IEnumerable<Transaction> transactions)
         {
-            var currentExchangeRate = _bitBayClient
-                .GetLatestExchangeRate(Currency.Pln, transaction.Currency);
-            var currentFeeRate = 0.0043m;
+            const decimal currentFeeRate = 0.0043m;
+            var currentExchangeRate = _bitBayClient.GetLatestExchangeRate(Currency.Pln, currency);
 
-            return new TransactionViewModel
+            var viewModel = new TransactionGroupViewModel
             {
-                Id = transaction.Id,
-                Currency = _bitBayClient.GetCurrencyName(transaction.Currency),
-                AmountSpent = transaction.AmountSpent,
-                AmountBought = decimal.Round(transaction.AmountSpent / transaction.OfferExchangeRate, 4),
-                OfferExchangeRate = transaction.OfferExchangeRate,
-                CurrentExchangeRate = currentExchangeRate,
-                ViableExchangeRate = _bitBayClient.GetViableExchangeRate(transaction.OfferExchangeRate, currentFeeRate),
-                Profit = _bitBayClient.GetProfit(transaction.AmountSpent, transaction.OfferExchangeRate, currentExchangeRate, currentFeeRate)
+                Currency = _bitBayClient.GetCurrencyName(currency),
+                CurrentExchangeRate = currentExchangeRate
             };
+
+            foreach (var transaction in transactions)
+            {
+                viewModel.Transactions.Add(new TransactionViewModel
+                {
+                    Id = transaction.Id,
+                    AmountSpent = transaction.AmountSpent,
+                    AmountBought = decimal.Round(transaction.AmountSpent / transaction.OfferExchangeRate, 4),
+                    OfferExchangeRate = transaction.OfferExchangeRate,
+                    ViableExchangeRate = _bitBayClient.GetViableExchangeRate(transaction.OfferExchangeRate, currentFeeRate),
+                    Profit = _bitBayClient.GetProfit(transaction.AmountSpent, transaction.OfferExchangeRate, currentExchangeRate, currentFeeRate)
+                });
+            }
+            return viewModel;
         }
     }
 }

@@ -8,24 +8,24 @@ BitcoinWatcher.Services.TransactionService = function() {
     self.getTransactions = function() {
         return $.deferredClosure(function(deferred) {
             $.getJson("/transactions")
-                .done(function(coinItems) {
-                    deferred.resolve(coinItems);
+                .done(function(transactions) {
+                    deferred.resolve(transactions);
                 });
         });
     }
 
-    self.addTransaction = function(coinItem) {
+    self.addTransaction = function (transaction) {
         return $.deferredClosure(function(deferred) {
-            $.postJson("/transactions", coinItem)
+            $.postJson("/transactions", transaction)
                 .done(function(response) {
                     deferred.resolve(response);
                 });
         });
     }
 
-    self.removeTransaction = function (coinItemId) {
+    self.removeTransaction = function (transactionId) {
         return $.deferredClosure(function (deferred) {
-            $.deleteJson("/transactions/"+coinItemId)
+            $.deleteJson("/transactions/" + transactionId)
                 .done(function (response) {
                     deferred.resolve(response);
                 });
