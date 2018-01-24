@@ -62,11 +62,5 @@ BitcoinWatcher.ViewModels.BitcoinWatcherViewModel = function() {
                 });
         }
     }
-
     refresh();
-    /*
-    var interval = setInterval(function() {
-            refresh();
-        }, 15000);
-        */
 }
