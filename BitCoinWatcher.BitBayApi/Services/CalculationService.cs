@@ -10,8 +10,8 @@
         public decimal CalculateProfit(decimal amountSpent, decimal offerExchangeRate, decimal currentExchangeRate, decimal feeRate)
         {
             var amountBought = amountSpent/offerExchangeRate;
-            var income = amountBought*currentExchangeRate;
-            return Rounded(income - income*feeRate - amountSpent);
+            var income = (amountBought - amountBought * feeRate)*currentExchangeRate;
+            return Rounded(income - income * feeRate - amountSpent);
         }
 
         private decimal Rounded(decimal number)

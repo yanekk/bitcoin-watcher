@@ -31,7 +31,7 @@ namespace BitCoinWatcher.BitBayApi.Tests
             var currentExchangeRate = 3804m;
             var feeRate = 0.0043m;
 
-            var expectedProfit = -3m;
+            var expectedProfit = -3.63m;
             var actualProfit = CreateService().CalculateProfit(amountSpent, offerExchangeRate, currentExchangeRate, feeRate);
             Assert.AreEqual(expectedProfit, actualProfit);
         }
